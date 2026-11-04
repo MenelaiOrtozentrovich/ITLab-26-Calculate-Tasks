@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+# Added
+*.pdb
+*.ilk
+
+# Folders
+/.vscode
+/build
