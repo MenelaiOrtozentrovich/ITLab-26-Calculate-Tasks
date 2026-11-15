@@ -1,0 +1,16 @@
+N = 10000, M = 10000
+Time: 0.337361 seconds
+N = 10000, M = 10000
+Time: 0.358242 seconds
+N = 10000, M = 10000
+Time: 1.620980 seconds
+N = 10000, M = 10000
+Time: 1.458236 seconds
+N = 10000, M = 10000
+Time: 0.269181 seconds
+N = 10000, M = 10000
+Time: 0.154470 seconds
+N = 10000, M = 10000
+Time: 0.164998 seconds
+N = 10000, M = 10000
+Time: 0.155761 seconds

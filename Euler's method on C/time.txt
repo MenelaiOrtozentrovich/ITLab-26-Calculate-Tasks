@@ -4,3 +4,46 @@ N = 100000, M = 100000
 Time: 16.995648 seconds
 N = 100000, M = 100000
 Time: 18.916582 seconds
+N = 100000, M = 100000
+Time: 4.902092 seconds
+N = 1000000, M = 100000
+Time: 71.382800 seconds
+N = 100000, M = 1000000
+Time: 51.422490 seconds
+N = 1000000, M = 1000000
+Time: 885.571123 seconds
+N = 1000000, M = 100000
+Time: 90.969482 seconds
+N = 1000000, M = 100000
+Time: 81.560648 seconds
+N = 1000000, M = 100000
+Time: 80.929622 seconds
+Intel + parallel
+N = 100000, M = 100000
+Time: 0.754343 seconds
+N = 100000, M = 1000000
+Time: 7.997664 seconds
+N = 100000, M = 1000000
+Time: 10.550110 seconds
+MSVC
+
+N = 1000000, M = 1000000
+Time: 450.695799 seconds
+N = 1000000, M = 1000000
+Time: 414.223830 seconds
+N = 1000000, M = 1000000
+Time: 240.847760 seconds
+N = 1000000, M = 1000000
+Time: 197.577102 seconds
+Intel
+
+N = 1000000, M = 1000000
+Time: 485.563728 seconds
+N = 1000000, M = 1000000
+Time: 446.344220 seconds
+N = 1000000, M = 1000000
+Time: 169.880486 seconds
+N = 1000000, M = 1000000
+Time: 121.772989 seconds
+N = 3000000, M = 200000
+Time: 434.350158 seconds

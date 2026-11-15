@@ -1,0 +1,40 @@
+{
+  "benchmark": "STREAM",
+  "version": "5.11.0",
+  "type": "CPU",
+  "timestamp": "2026-11-09T01:54:27",
+  "config": {
+    "array_size_elements": 200000000,
+    "array_size_mib": 1525.9,
+    "bytes_per_element": 8,
+    "total_memory_mib": 4577.6,
+    "ntimes": 20
+  },
+  "results": {
+    "copy": {
+      "best_rate_mbps": 66267.3,
+      "avg_time_sec": 0.052515,
+      "min_time_sec": 0.048289,
+      "max_time_sec": 0.055018
+    },
+    "scale": {
+      "best_rate_mbps": 46087.5,
+      "avg_time_sec": 0.075623,
+      "min_time_sec": 0.069433,
+      "max_time_sec": 0.082899
+    },
+    "add": {
+      "best_rate_mbps": 49679.7,
+      "avg_time_sec": 0.105595,
+      "min_time_sec": 0.096619,
+      "max_time_sec": 0.119245
+    },
+    "triad": {
+      "best_rate_mbps": 49916.7,
+      "avg_time_sec": 0.105474,
+      "min_time_sec": 0.096160,
+      "max_time_sec": 0.112372
+    }
+  },
+  "validation": "passed"
+}

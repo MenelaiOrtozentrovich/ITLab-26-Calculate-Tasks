@@ -1,0 +1,1 @@
+icx -O3 -march=native -ffast-math /Qopenmp -o Runge-Kutta_intel.exe Runge-Kutta.c

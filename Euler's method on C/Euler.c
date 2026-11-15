@@ -3,13 +3,14 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
+#include <omp.h>
 
 #define CNTPARAMS 5
 
 #ifdef _MSC_VER
 //#include <intrin.h> // RDTSC
 #include <windows.h> // Для QueryPerformanceCounter
-
+#endif
 const char* names[] = { "XMIN", "XMAX", "N", "M", "T" };
 
 int read_input_file(int** params, double* Sigma) {
@@ -105,7 +106,41 @@ int write(int t_passed, int N, double* p, double time_sec) {
     return 0;
 }
 
+#ifdef _MSC_VER
+void bind_to_pcores_no_ht() {
+    DWORD bufferSize = 0;
+    GetLogicalProcessorInformation(NULL, &bufferSize);
+    
+    PSYSTEM_LOGICAL_PROCESSOR_INFORMATION buffer = 
+        (PSYSTEM_LOGICAL_PROCESSOR_INFORMATION)malloc(bufferSize);
+    GetLogicalProcessorInformation(buffer, &bufferSize);
+    
+    DWORD_PTR pcoreMask = 0;
+    int pcoreCount = 0;
+    
+    for (DWORD i = 0; i < bufferSize / sizeof(SYSTEM_LOGICAL_PROCESSOR_INFORMATION); i++) {
+        if (buffer[i].Relationship == RelationProcessorCore) {
+            DWORD_PTR coreMask = buffer[i].ProcessorMask;
+            DWORD_PTR lowestBit = coreMask & (~coreMask + 1);
+            
+            if (pcoreCount < 4) {
+                pcoreMask |= lowestBit;
+                pcoreCount++;
+            }
+        }
+    }
+    
+    free(buffer);
+    SetProcessAffinityMask(GetCurrentProcess(), pcoreMask);
+    printf("Bound to %d P-cores (no HT), mask = 0x%I64X\n", 
+           pcoreCount, (unsigned long long)pcoreMask);
+}
+#endif
+
 int main() {
+    #ifdef _MSC_VER
+    bind_to_pcores_no_ht();
+#endif
     int XMIN = 0, XMAX = 0, N = 0, T = 0, M = 0;
     double Sigma = 0.0;
     int* params[] = { &XMIN, &XMAX, &N, &M, &T };
@@ -150,10 +185,15 @@ int main() {
     QueryPerformanceFrequency(&freq);
     QueryPerformanceCounter(&start);
 
+    omp_set_num_threads(4);
     double* cur = p1, * next = p2;
     for (int t = 0; t < M; t++) {
-        for (int x = 1; x < N; x++)
+        int x;
+        #pragma omp parallel for schedule(static)
+        for (x = 1; x < N; x++){
+            
             next[x] = cur[x] + r * (cur[x + 1] - 2.0 * cur[x] + cur[x - 1]);
+        }
         double* tmp = cur; cur = next; next = tmp;
     }
     p = cur;
@@ -169,4 +209,3 @@ int main() {
     printf("Calculation finished successfully. Time: %.6f sec\n", time_in_seconds);
     return 0;
 }
-#endif
